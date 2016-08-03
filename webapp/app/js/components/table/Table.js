@@ -31,10 +31,12 @@ var Table = React.createClass({
   render: function() {
     var posPane = this.pane('positive');
     var negPane = this.pane('negative');
+    var unlabeledPane = this.pane('unlabeled');
     return (
       <TabbedArea animation={false}>
         {posPane}
         {negPane}
+        {unlabeledPane}
       </TabbedArea>
     );
   }

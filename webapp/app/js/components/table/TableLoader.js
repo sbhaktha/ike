@@ -28,6 +28,7 @@ var TableLoader = React.createClass({
       cols: [],
       positive: [],
       negative: [],
+      unlabeled: [],
       error: ''};
   },
 
@@ -37,7 +38,8 @@ var TableLoader = React.createClass({
       name: this.state.name,
       cols: this.state.cols,
       positive: this.state.positive,
-      negative: this.state.negative
+      negative: this.state.negative,
+      unlabeled: this.state.unlabeled
     };
     this.props.onSubmit(table);
     this.setState(this.getInitialState());
@@ -118,6 +120,7 @@ var TableLoader = React.createClass({
       try {
         var newPositive = body.filter(filterLabel("positive")).map(makeRow);
         var newNegative = body.filter(filterLabel("negative")).map(makeRow);
+        var newUnlabeled = body.filter(filterLabel("unlabeled")).map(makeRow);
       } catch(e) {
         if(e.message === "JSON error") {
           self.setState({error: "JSON error on line '" + e.json + "'"});
@@ -131,6 +134,7 @@ var TableLoader = React.createClass({
         cols: newCols,
         positive: newPositive,
         negative: newNegative,
+        unlabeled: newUnlabeled,
         error: ''
       });
     };
