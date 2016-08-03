@@ -14,7 +14,7 @@ object JsonSerialization {
   implicit val qwordFormat = jsonFormat1(QWord.apply)
   implicit val tableValueFormat = jsonFormat1(TableValue.apply)
   implicit val tableRowForamt = jsonFormat2(TableRow.apply)
-  implicit val tableFormat = jsonFormat4(Table.apply)
+  implicit val tableFormat = jsonFormat5(Table.apply)
   implicit val searchConfigFormat = jsonFormat2(SearchConfig.apply)
   implicit val searchRequestFormat = jsonFormat4(SearchRequest.apply)
   implicit val searchResponse = jsonFormat2(SearchResponse.apply)

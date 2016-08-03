@@ -141,7 +141,7 @@ object UncachedTablestore extends Tablestore with Logging {
           TableRow(row._1.map(value2tableValue), row._3.map(playJson2sprayJson))
         val tableRows = filteredRows.groupBy(_._2).mapValues(_.map(row2tableRow))
         val tableRowsWithDefault = tableRows.withDefaultValue(Seq.empty)
-        tname -> Table(tname, tcolumns, tableRowsWithDefault(true), tableRowsWithDefault(false))
+        tname -> Table(tname, tcolumns, tableRowsWithDefault(true), tableRowsWithDefault(false), None)
     }
   }
 

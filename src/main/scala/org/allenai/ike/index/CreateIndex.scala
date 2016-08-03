@@ -3,7 +3,7 @@ package org.allenai.ike.index
 import org.allenai.datastore.Datastore
 import org.allenai.nlpstack.core.{ ChunkedToken, Lemmatized }
 
-import org.allenai.blacklab.index.Indexer
+import nl.inl.blacklab.index.Indexer
 
 import java.io.{ File, StringReader }
 import java.net.URI
@@ -45,7 +45,7 @@ object CreateIndex extends App {
   parser.parse(args, Options()) foreach { options =>
     val indexDir = options.destinationDir
     val batchSize = options.batchSize
-    val idTexts = options.textSource.getScheme match {
+    val idTexts: Iterator[IdText] = options.textSource.getScheme match {
       case "file" =>
         val path = Paths.get(options.textSource)
         if (Files.isDirectory(path)) {
@@ -74,7 +74,7 @@ object CreateIndex extends App {
 
     def process(idText: IdText): Seq[IndexableText] = {
       if (options.oneSentPerDoc) {
-        val sents = NlpAnnotate.annotate(idText.text)
+        val sents: Seq[Seq[Lemmatized[ChunkedToken]]] = NlpAnnotate.annotate(idText.text)
         sents.zipWithIndex.filter(_._1.nonEmpty).map {
           case (sent, index) =>
             val text = idText.text.substring(
@@ -87,7 +87,7 @@ object CreateIndex extends App {
         }
       } else {
         val text = idText.text
-        val sents = for {
+        val sents: Seq[Seq[IndexableToken]] = for {
           sent <- NlpAnnotate.annotate(text)
           indexableSent = sent map indexableToken
         } yield indexableSent

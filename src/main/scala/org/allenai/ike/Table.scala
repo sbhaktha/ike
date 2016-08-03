@@ -3,7 +3,11 @@ package org.allenai.ike
 import spray.json.JsValue
 
 case class Table(
-    name: String, cols: Seq[String], positive: Seq[TableRow], negative: Seq[TableRow]
+    name: String,
+    cols: Seq[String],
+    positive: Seq[TableRow],
+    negative: Seq[TableRow],
+    unlabeled: Option[Seq[TableRow]]
 ) {
   def getIndexOfColumn(columnName: String): Int = {
     val ix = cols.indexWhere(c => c.equalsIgnoreCase(columnName))

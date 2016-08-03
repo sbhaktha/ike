@@ -170,7 +170,7 @@ class IkeToolActor extends Actor with HttpService with SprayJsonSupport with Log
               })
             }
           }
-        } ~
+        } /*~
         path("suggestQuery") {
           post {
             entity(as[SuggestQueryRequest]) { req =>
@@ -186,7 +186,7 @@ class IkeToolActor extends Actor with HttpService with SprayJsonSupport with Log
               })
             }
           }
-        }
+        }*/
     } ~ path("similarPhrases") {
       parameters('phrase) { phrase =>
         complete {

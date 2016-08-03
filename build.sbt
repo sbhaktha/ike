@@ -43,13 +43,13 @@ libraryDependencies ++= Seq(
     "com.github.tminglei" %% "slick-pg" % "0.8.2",
     "com.typesafe.play" %% "play-json" % "2.3.8",
     "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
-    "org.allenai.blacklab" %% "blacklab" % "1.0-ALLENAI-13",
+    "nl.inl.blacklab" % "blacklab" % "1.3.7",
     "org.allenai.word2vec" %% "word2vecjava" % "1.0.1",
     "com.google.guava" % "guava" % "18.0",
     "org.apache.thrift" % "libthrift" % "0.9.1",
     sprayModule("caching"),
     "com.papertrailapp" % "logback-syslog4j" % "1.0.0",
-    scopt)
+    scopt).map(_.exclude("org.slf4j", "log4j-over-slf4j"))
 
 javaOptions in Revolver.reStart += "-Xmx14G"
 

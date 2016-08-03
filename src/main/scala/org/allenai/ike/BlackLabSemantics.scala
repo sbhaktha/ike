@@ -1,6 +1,6 @@
 package org.allenai.ike
 
-import org.allenai.blacklab.search.{
+import nl.inl.blacklab.search.{
   TextPattern,
   TextPatternAnd,
   TextPatternCaptureGroup,
@@ -8,7 +8,7 @@ import org.allenai.blacklab.search.{
   TextPatternProperty,
   TextPatternTerm
 }
-import org.allenai.blacklab.search.sequences.{
+import nl.inl.blacklab.search.sequences.{
   TextPatternAnyToken,
   TextPatternRepetition,
   TextPatternSequence

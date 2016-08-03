@@ -2,9 +2,10 @@ package org.allenai.ike
 
 import org.allenai.common.immutable.Interval
 
-import org.allenai.blacklab.search.{ Hit, Hits, Kwic, Span }
+import nl.inl.blacklab.search.{ Hit, Hits, Kwic, Span }
 
 import scala.collection.JavaConverters._
+import scala.collection.mutable
 
 case class BlackLabResult(
     wordData: Seq[WordData],
@@ -18,17 +19,17 @@ case class BlackLabResult(
 
 case object BlackLabResult {
   def wordData(hits: Hits, kwic: Kwic): Seq[WordData] = {
-    val attrNames = kwic.getProperties.asScala
-    val attrValues = kwic.getTokens.asScala.grouped(attrNames.size)
-    val attrGroups = attrValues.map(attrNames.zip(_).toMap).toSeq
-    for {
+    val attrNames: mutable.Buffer[String] = kwic.getProperties.asScala
+    val attrValues: Iterator[mutable.Buffer[String]] = kwic.getTokens.asScala.grouped(attrNames.size)
+    val attrGroups = attrValues.map(attrNames.zip(_).toMap)
+    (for {
       attrGroup <- attrGroups
       word = attrGroup.get("word") match {
         case Some(value) => value
         case _ => throw new IllegalStateException(s"kwic $kwic does not have 'word' attribute")
       }
       data = WordData(word, attrGroup - "word")
-    } yield data
+    } yield data).toSeq
   }
 
   def toInterval(span: Span): Interval = Interval.open(span.start, span.end)
